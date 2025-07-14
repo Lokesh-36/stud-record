@@ -44,7 +44,7 @@ app.post('/student', upload.single('profile_pic'), async (req, res) => {
         const dbParams = {
             TableName: 'student-records',
             Item: {
-                student_id,
+                username : student_id,
                 name,
                 department,
                 imageUrl
