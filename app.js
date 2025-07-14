@@ -31,11 +31,10 @@ app.post('/student', upload.single('profile_pic'), async (req, res) => {
     if (!file) return res.status(400).send('Profile picture is required.');
 
     const s3Params = {
-        Bucket: 'student-profile-pics',
+        Bucket: 'stud-prof-bucket',
         Key: `students/${student_id}.jpg`,
         Body: file.buffer,
         ContentType: file.mimetype,
-        ACL: 'public-read',
     };
 
     try {
@@ -43,7 +42,7 @@ app.post('/student', upload.single('profile_pic'), async (req, res) => {
         const imageUrl = `https://${s3Params.Bucket}.s3.amazonaws.com/${s3Params.Key}`;
 
         const dbParams = {
-            TableName: 'StudentRecords',
+            TableName: 'student-records',
             Item: {
                 student_id,
                 name,
